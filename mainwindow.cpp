@@ -1,3 +1,4 @@
+// mainwindow.cpp
 #include "mainwindow.h"
 #include <random>
 #include <QRegularExpression>
@@ -44,11 +45,13 @@ MainWindow::MainWindow(QWidget *parent)
     avgObserver = new AverageObserver(this);
     maxObserver = new MaxObserver(this);
     minObserver = new MinObserver(this);
+    apObserver = new ArithmeticProgressionObserver(this); // Новый наблюдатель
 
     attach(labelObserver);
     attach(avgObserver);
     attach(maxObserver);
     attach(minObserver);
+    attach(apObserver); // Регистрация нового наблюдателя
 
     connect(lineEdit, &QLineEdit::textChanged, [this](const QString &text) {
         QList<int> values = parseInput(text);
@@ -70,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(avgObserver);
     layout->addWidget(maxObserver);
     layout->addWidget(minObserver);
+    layout->addWidget(apObserver); // Добавление нового наблюдателя в компоновку
 
     centralWidget->setLayout(layout);
     setCentralWidget(centralWidget);
@@ -154,6 +158,7 @@ void MainWindow::setDarkThemeStyles() {
     avgObserver->setStyleSheet("QLabel { background-color: #1A237E; padding: 8px; border: 2px solid #3949AB; border-radius: 5px; color: " + darkTextColor + "; }");
     maxObserver->setStyleSheet("QLabel { background-color: rgba(30, 130, 76, 80); padding: 8px; border: 2px solid #388E3C; border-radius: 5px; color: " + darkTextColor + "; }");
     minObserver->setStyleSheet("QLabel { background-color: rgba(183, 28, 28, 80); padding: 8px; border: 2px solid #D32F2F; border-radius: 5px; color: " + darkTextColor + "; }");
+    apObserver->setStyleSheet("QLabel { background-color: #212121; padding: 8px; border: 2px solid #4CAF50; border-radius: 5px; color: " + darkTextColor + "; }"); // Стили нового наблюдателя
 }
 
 void MainWindow::setLightThemeStyles() {
@@ -174,4 +179,5 @@ void MainWindow::setLightThemeStyles() {
     avgObserver->setStyleSheet("QLabel { background-color: #E0F7FA; padding: 8px; border: 2px solid #B2EBF2; border-radius: 5px; color: " + lightTextColor + "; }");
     maxObserver->setStyleSheet("QLabel { background-color: #E8F5E9; padding: 8px; border: 2px solid #A5D6A7; border-radius: 5px; color: " + lightTextColor + "; }");
     minObserver->setStyleSheet("QLabel { background-color: #FFEBEE; padding: 8px; border: 2px solid #EF5350; border-radius: 5px; color: " + lightTextColor + "; }");
+    apObserver->setStyleSheet("QLabel { background-color: #f0f0f0; padding: 8px; border: 2px solid #4CAF50; border-radius: 5px; color: " + lightTextColor + "; }"); // Стили нового наблюдателя
 }
